@@ -67,7 +67,8 @@
               rating: this.rating,
               recommendation: this.recommendation
             }
-            EventBus.$emit('review-submitted',productReview)
+            this.$store.commit('addReview',productReview);
+            // EventBus.$emit('review-submitted',productReview)
 
             this.name = null
             this.review = null

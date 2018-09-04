@@ -11,16 +11,18 @@
       <h2>Reviews</h2>
       <p v-if="!reviews.length">There are no reviews yet</p>
       <ul>
-        <li v-for="review in reviews">
+        <li v-for="(review,index) in reviews">
           <p>{{review.name}}</p>
           <p>{{review.review}}</p>
           <p>{{review.rating}}</p>
           <p>{{review.recommendation}}</p>
+          <button @click="deleteReview(index)">Delete this review</button>
         </li>
       </ul>
     </div>
 
     <product-review v-show="selectedTab==='Make a Review'"></product-review>
+
   </div>
 </template>
 
@@ -29,17 +31,21 @@
 
     export default {
         name: "product-tabs",
-      props: {
-        reviews:{
-          type: Array,
-          required: true
-        }
-      },
       data(){
         return {
           tabs: ["Reviews","Make a Review"],
           selectedTab: 'Reviews'
         }
+      },
+      methods:{
+        deleteReview(index){
+          this.$store.commit('deleteReview',index)
+        }
+      },
+      computed:{
+        reviews(){
+           return this.$store.state.reviews;
+         }
       },
       components:{
         'product-review':productReview

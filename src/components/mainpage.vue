@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="nav-bar"></div>
-    <product :premium="premium" @add-to-cart="updateCart" @remove-from-cart="removeFromCart"></product>
+    <product @add-to-cart="updateCart" @remove-from-cart="removeFromCart"></product>
     <div class="cart">
       <p>Cart {{cart.length}}</p>
     </div>
@@ -15,7 +15,7 @@
         name: "mainpage",
       data(){
         return{
-          premium: false,
+          premium: true,
           cart: []
         }
       },

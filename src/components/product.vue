@@ -20,7 +20,7 @@
 
         <p>{{onSale}}</p>
 
-        <product-tabs :reviews="product.reviews"></product-tabs>
+        <product-tabs></product-tabs>
         <other-details-tab :shipping="shipping" :details="product.details"></other-details-tab>
 
         <div v-for="(variant, index) in product.variants"
@@ -47,12 +47,6 @@
 
     export default {
         name: "product",
-      props: {
-        premium: {
-          type: Boolean,
-          required: true
-        }
-      },
       data() {
         return {
           product: {
@@ -95,8 +89,7 @@
                 quantity: 1,
                 onSale: false
               }],
-            cart: 0,
-            reviews: []
+            cart: 0
           }
         }
       },
@@ -134,7 +127,7 @@
           return this.product.brand + "..." + this.product.name + " are not on sale"
         },
         shipping(){
-          if (this.premium) {
+          if (this.$store.state.premium) {
             return "Free"
           }
           return 2.99
@@ -142,11 +135,6 @@
         // onSale(){
         // 	return this.product.variants[this.product.selectedVariant].onSale;
         // }
-      },
-      mounted(){
-        EventBus.$on('review-submitted', productReview => {
-          this.product.reviews.push(productReview)
-        })
       },
       components:{
         'product-tabs':producttabs, 'other-details-tab' : otherDetailTabs
